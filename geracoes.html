@@ -1,0 +1,22 @@
+<meta charset="UTF-8">
+
+<script>
+	function pulaLinha(){
+
+		document.write("<br>");
+	}
+
+	function mostra(idade){
+
+		document.write(idade);
+		pulaLinha();
+	}
+
+	var anoInicial = 1500;
+	var anoAtual = 2022; 
+	var idadeMediaFilhos = 28;
+	var totalGeracoes = (anoAtual - anoInicial) / 28;
+	
+	mostra ("Desde 1500 até o ano atual, já se passaram " + Math.round(totalGeracoes) + " gerações");
+
+</script>

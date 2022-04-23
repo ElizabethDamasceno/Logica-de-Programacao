@@ -1,0 +1,44 @@
+<meta charset="UTF-8">
+<head>
+    <script>
+        function pulaLinha(){
+
+            document.write("<br>");
+        }
+
+        function mostra(frase){
+
+            alert(frase);
+            //pulaLinha();
+            //document.write(frase);
+            //pulaLinha();
+        }
+
+        function advinhaNumero(){
+            var numeroPensado = Math.round(Math.random()*10); 
+
+            var tentativas = 1;
+
+            while (tentativas <= 3){
+            
+                var chute = parseInt(prompt("Digite um numero "));
+
+                if (chute == numeroPensado){
+                    mostra ("Você acertou! ");
+                    break; // força a finalização do while
+                }
+                else {  
+                    mostra("Você errou, tente novamente.");
+                }
+
+                tentativas++;
+            }
+        }
+        
+        //Diz ao navegador que é para executar a função advinha numero apenas quando o documento HTML inteiro for carregado
+        document.addEventListener("load", advinhaNumero()); 
+    </script>
+</head>
+<body>
+    <h1>Hello World</h1>
+</body>
