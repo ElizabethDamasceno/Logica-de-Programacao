@@ -1,0 +1,237 @@
+{
+  "configuracao_secoes": {
+    "SESMET": {
+      "palavras_chave": ["SESMET", "SEGURANÇA", "ACIDENTES", "INCIDENTES"],
+      "colunas_esperadas": [
+        "MES",
+        "ACIDENTES_TRABALHO", 
+        "INCIDENTES",
+        "NEAR_MISS",
+        "OBSERVACOES_SEGURANCA",
+        "TREINAMENTOS_REALIZADOS",
+        "HORAS_TREINAMENTO",
+        "PARTICIPANTES_TREINAMENTO",
+        "EQUIPAMENTOS_EPI_ENTREGUES",
+        "AUDITORIAS_INTERNAS",
+        "NAO_CONFORMIDADES",
+        "ACOES_CORRETIVAS",
+        "TAXA_FREQUENCIA",
+        "TAXA_GRAVIDADE"
+      ],
+      "metricas_calculadas": [
+        "taxa_acidentes_mes",
+        "eficiencia_treinamentos",
+        "cumprimento_auditorias"
+      ]
+    },
+    "RECURSOS_HUMANOS": {
+      "palavras_chave": ["RECURSOS HUMANOS", "ADMISSÃO", "ATIVOS", "RH"],
+      "colunas_esperadas": [
+        "MES",
+        "ADMISSAO",
+        "ATIVOS", 
+        "TEMPORARIO",
+        "AFASTADOS",
+        "ATESTADOS",
+        "HORAS_EXTRAS",
+        "ABSENTEISMO",
+        "DEMISSOES",
+        "ENTREVISTAS",
+        "VAGAS",
+        "TURN_OVER_ACUM"
+      ],
+      "metricas_calculadas": [
+        "taxa_rotatividade",
+        "indice_absenteismo",
+        "eficiencia_recrutamento",
+        "custo_funcionario_mes"
+      ]
+    },
+    "BIOGAS": {
+      "palavras_chave": ["BIOGÁS", "CAPTAÇÃO", "METANO", "CH4"],
+      "colunas_esperadas": [
+        "MES",
+        "MEDIA_LATAM_NM3_H",
+        "CAPTADO",
+        "MEDIA_LATAM_METANO", 
+        "CAPTADO_METANO",
+        "MEDIA_LATAM_PERC",
+        "MEDIA_PERC_REALIZADA",
+        "REAL",
+        "META",
+        "BIOGAS_RESIDUO_RECEBIDO",
+        "METANO_RESIDUOS",
+        "POCOS_CONECTADOS",
+        "NOVOS_POCOS",
+        "BIOGAS_TOTAL_ACUM",
+        "CH4_TOTAL_ACUM"
+      ],
+      "metricas_calculadas": [
+        "eficiencia_captacao",
+        "performance_vs_meta",
+        "produtividade_por_poco",
+        "tendencia_producao"
+      ]
+    },
+    "AUTOCLAVE": {
+      "palavras_chave": ["AUTOCLAVE", "TRATAMENTO", "ESTERILIZAÇÃO"],
+      "colunas_esperadas": [
+        "MES",
+        "META_RESIDUOS",
+        "RESIDUOS_TRATADOS",
+        "PERCENTUAL_TRATADO",
+        "ENERGIA_CONSUMIDA",
+        "TEMPO_OPERACAO",
+        "CICLOS_REALIZADOS",
+        "MANUTENCOES_PREVENTIVAS",
+        "MANUTENCOES_CORRETIVAS",
+        "TEMPO_PARADA",
+        "DISPONIBILIDADE",
+        "EFICIENCIA_ENERGETICA"
+      ],
+      "metricas_calculadas": [
+        "disponibilidade_equipamento",
+        "eficiencia_tratamento",
+        "custo_energia_por_tonelada",
+        "performance_operacional"
+      ]
+    },
+    "OPERACAO_ATERRO": {
+      "palavras_chave": ["OPERAÇÃO DO ATERRO", "ATERRO", "SOLO", "DEPOSIÇÃO"],
+      "colunas_esperadas": [
+        "MES",
+        "SOLO_DEPOSITADO",
+        "BRITAS_UTILIZADAS",
+        "DIESEL_CONSUMIDO",
+        "HORAS_TOTAL_MAQUINAS",
+        "META_AREA_EXPOSTA",
+        "AREA_EXPOSTA_REAL",
+        "SOLUCAO_CICLO_KG",
+        "META_SOLO_TON",
+        "DIESEL_TON",
+        "HORASION",
+        "AMARELACAO",
+        "DRENAGEM"
+      ],
+      "metricas_calculadas": [
+        "eficiencia_cobertura",
+        "consumo_combustivel_por_hora",
+        "produtividade_maquinas",
+        "cumprimento_metas_ambientais"
+      ]
+    }
+  },
+  "configuracao_validacao": {
+    "tipos_dados": {
+      "numerico": ["float", "int"],
+      "percentual": ["float"],
+      "texto": ["str"],
+      "data": ["datetime"]
+    },
+    "validacoes_especificas": {
+      "percentuais": {
+        "min": 0,
+        "max": 100
+      },
+      "valores_positivos": {
+        "min": 0
+      },
+      "meses_validos": [
+        "JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO",
+        "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"
+      ]
+    }
+  },
+  "configuracao_alertas": {
+    "thresholds": {
+      "BIOGAS": {
+        "eficiencia_captacao_min": 45.0,
+        "disponibilidade_planta_min": 95.0,
+        "variacao_producao_max": 20.0
+      },
+      "RH": {
+        "turnover_max": 15.0,
+        "absenteismo_max": 5.0,
+        "horas_extras_max": 10.0
+      },
+      "SESMET": {
+        "acidentes_max": 0,
+        "incidentes_max": 2,
+        "taxa_treinamento_min": 80.0
+      },
+      "AUTOCLAVE": {
+        "disponibilidade_min": 90.0,
+        "eficiencia_tratamento_min": 95.0
+      }
+    },
+    "tipos_alerta": {
+      "CRITICO": {
+        "prioridade": 1,
+        "notificacao": "imediata"
+      },
+      "ALTO": {
+        "prioridade": 2,
+        "notificacao": "diaria"
+      },
+      "MEDIO": {
+        "prioridade": 3,
+        "notificacao": "semanal"
+      }
+    }
+  },
+  "configuracao_bigquery": {
+    "schemas_tabelas": {
+      "dados_recursos_humanos": {
+        "mes": "STRING",
+        "admissao": "INTEGER",
+        "ativos": "INTEGER",
+        "temporario": "INTEGER",
+        "afastados": "INTEGER",
+        "atestados": "INTEGER",
+        "horas_extras": "FLOAT",
+        "absenteismo": "FLOAT",
+        "demissoes": "INTEGER",
+        "entrevistas": "INTEGER",
+        "vagas": "INTEGER",
+        "turn_over_acum": "FLOAT",
+        "data_processamento": "TIMESTAMP",
+        "versao_dados": "STRING",
+        "fonte_arquivo": "STRING"
+      },
+      "dados_biogas": {
+        "mes": "STRING",
+        "media_latam_nm3_h": "FLOAT",
+        "captado": "FLOAT",
+        "media_latam_metano": "FLOAT",
+        "captado_metano": "FLOAT",
+        "media_latam_perc": "FLOAT",
+        "media_perc_realizada": "FLOAT",
+        "real": "FLOAT",
+        "meta": "FLOAT",
+        "biogas_residuo_recebido": "FLOAT",
+        "metano_residuos": "FLOAT",
+        "pocos_conectados": "INTEGER",
+        "novos_pocos": "INTEGER",
+        "biogas_total_acum": "FLOAT",
+        "ch4_total_acum": "FLOAT",
+        "data_processamento": "TIMESTAMP",
+        "versao_dados": "STRING",
+        "fonte_arquivo": "STRING"
+      }
+    }
+  },
+  "configuracao_gcp": {
+    "regioes_disponiveis": ["us-central1", "us-east1", "southamerica-east1"],
+    "memoria_funcao": "1024MB",
+    "timeout_funcao": "540s",
+    "runtime_python": "python311",
+    "variaveis_ambiente": {
+      "GCP_PROJECT_ID": "seu-projeto-gcp",
+      "BUCKET_NAME": "dados-operacionais", 
+      "DATASET_ID": "consolidado_operacional",
+      "TABLE_PREFIX": "dados_"
+    }
+  },
+  "versao_configuracao": "1.0.0",
+  "ultima_atualizacao": "2024-01-01"
+}
